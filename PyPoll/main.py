@@ -15,5 +15,14 @@ with open(election, 'r') as csvfile:
 # Print total votes
     print(row_count)
     data.seek(0)
+# Print list of candidates
+   
 
+# Print percentage of votes per candidate
+
+
+# Print total number of votes per candidate
+
+
+#
     

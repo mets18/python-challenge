@@ -1,0 +1,3 @@
+The number of rows is 86.
+The total profit/loss is $38382578.0.
+The average change is 2315.1176470588234.
