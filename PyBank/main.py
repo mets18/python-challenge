@@ -1,7 +1,7 @@
 # import dependencies
 import os
 import csv
-import subprocess
+
 # convert csv
 budgetcsv = os.path.join ("resources","budget_data.csv")
 
@@ -30,11 +30,25 @@ with open(budgetcsv, 'r') as csvfile:
     budget_header = next(csvreader)
     original_value = next(csvreader)
     print (original_value[1])
+    cells=list(csv.reader(data))
+    last_value=(cells[(row_count)-2][1])
+    print(last_value)
+    average_change = (int(original_value[1]) - int(last_value))/(row_count-1)
+    print("The average change is " + str(average_change) + ".")
 
 # The greatest increase in profits (date and amount) over the entire period
+      
+
 
 # The greatest decrease in losses (date and amount) over the entire period
 
 # Print results
-    print(row_count)
-    print (total)
+    print("The number of rows is " + str(row_count) + ".")
+    print ("The total profit/loss is $" + str(total) + ".")
+
+
+# Produce output file
+with open("output.txt", "w") as file:
+    file.write("The number of rows is " + str(row_count) + ".\n")
+    file.write("The total profit/loss is $" + str(total) + ".\n")
+    file.write("The average change is " + str(average_change) + ".")
