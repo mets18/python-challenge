@@ -1,6 +1,7 @@
 # import dependencies
 import os
 import csv
+
 # convert csv
 election = os.path.join ("resources","election_data.csv")
 with open(election, 'r') as csvfile:
@@ -14,15 +15,20 @@ with open(election, 'r') as csvfile:
     print(row_count)
 # Reset csvreader
     data.seek(0)
+# Skip header row
+    header = next(csvreader)
+
 # Print list of candidates
-    candidate_count = {}
-    candidate_count = csv.DictReader(data, "Candidate")
+    count = {}
+    for candidate in csvreader:
+        if candidate [2] not in count:
+            count [candidate [2]] = 1
+        else:
+            count [candidate [2]] = count[candidate [2]] + 1
+    print (count)
+
 
 # Print percentage of votes per candidate
-    print(candidate_count)
+#print(len(candidate_count["Candidate"])
 
 # Print total number of votes per candidate
-
-
-# Produce output file
-    
