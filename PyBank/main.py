@@ -15,37 +15,58 @@ with open(budgetcsv, 'r') as csvfile:
 
 # Reset csvreader
     data.seek(0)
-# Skip header row    
+# Skip header row
     budget_header = next(csvreader)
+
 # The net total amount of "Profit/Losses" over the entire period
     total=0
     for row in csvreader:
         total += float(row[1])
-    
-    
-
-# The average of the changes in "Profit/Losses" over the entire period
-
+ # Reset csvreader       
     data.seek(0)
+# Skip header row and first row of data    
     budget_header = next(csvreader)
     original_value = next(csvreader)
-    print (original_value[1])
+# Calculate greatest increase and decrease
+    previous_value = float(original_value[1])
+    greatest_increase = 0
+    greatest_decrease = 0
+    for row in csvreader:
+        current_change = float(row[1])-previous_value
+        if current_change > greatest_increase:
+            greatest_increase = current_change
+            greatest_increase_month = row[0]
+        else:
+            greatest_increase = greatest_increase
+        if current_change < greatest_decrease:
+            greatest_decrease = current_change
+            greatest_decrease_month = row[0]
+        else:
+            greatest_decrease = greatest_decrease
+        
+
+        previous_value = float(row[1])
+       
+    
+
+# Reset csvreader
+    data.seek(0)
+
+# The average of the changes in "Profit/Losses" over the entire period
     cells=list(csv.reader(data))
-    last_value=(cells[(row_count)-2][1])
-    print(last_value)
-    average_change = (int(original_value[1]) - int(last_value))/(row_count-1)
+    last_value=(cells[(row_count)][1])
+    average_change = (int(last_value) - int(original_value[1]))/(row_count-1)
     print("The average change is " + str(average_change) + ".")
 
-# The greatest increase in profits (date and amount) over the entire period
-      
 
-
-# The greatest decrease in losses (date and amount) over the entire period
 
 # Print results
     print("The number of rows is " + str(row_count) + ".")
     print ("The total profit/loss is $" + str(total) + ".")
-
+    print (str(greatest_increase))
+    print (greatest_increase_month)
+    print (str(greatest_decrease))
+    print (greatest_decrease_month)
 
 # Produce output file
 with open("output.txt", "w") as file:
