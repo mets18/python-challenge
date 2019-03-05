@@ -11,24 +11,44 @@ with open(election, 'r') as csvfile:
 # The total number of votes included in the dataset
     row_count = sum(1 for row in csvreader)-1
 
-# Print total votes
-    print(row_count)
+
 # Reset csvreader
     data.seek(0)
 # Skip header row
     header = next(csvreader)
 
-# Print list of candidates
+# Calculate election results
     count = {}
     for candidate in csvreader:
         if candidate [2] not in count:
             count [candidate [2]] = 1
         else:
             count [candidate [2]] = count[candidate [2]] + 1
-    print (count)
+
+    winner = [candidate for candidate in count.keys()][0]
 
 
-# Print percentage of votes per candidate
-#print(len(candidate_count["Candidate"])
+# Print output
+    print ("Election Results")
+    print ("---------------------------------")
+    print ("Total Votes: " + str(row_count))
+    print ("---------------------------------")
 
-# Print total number of votes per candidate
+    for candidate, value in count.items():
+        print (candidate + ":  " + str(round(value / row_count * 100)) + "% " + "(" + str(value) + ")")
+
+    print ("---------------------------------")
+    print ("Winner: " + winner)
+    print ("---------------------------------")
+
+# Produce output file
+with open("output.txt", "w") as file:
+    file.write("Election Results\n")
+    file.write("---------------------------------\n")
+    file.write("Total Votes: " + str(row_count) + "\n")
+    file.write("---------------------------------\n")
+    for candidate, value in count.items():
+        file.write (candidate + ":  " + str(round(value / row_count * 100)) + "% " + "(" + str(value) + ")\n")
+    file.write("---------------------------------\n")
+    file.write("Winner: " + winner + "\n")
+    file.write("---------------------------------")

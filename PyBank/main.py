@@ -56,20 +56,25 @@ with open(budgetcsv, 'r') as csvfile:
     cells=list(csv.reader(data))
     last_value=(cells[(row_count)][1])
     average_change = (int(last_value) - int(original_value[1]))/(row_count-1)
-    print("The average change is " + str(average_change) + ".")
+    
 
 
 
 # Print results
-    print("The number of rows is " + str(row_count) + ".")
-    print ("The total profit/loss is $" + str(total) + ".")
-    print (str(greatest_increase))
-    print (greatest_increase_month)
-    print (str(greatest_decrease))
-    print (greatest_decrease_month)
+    print ("Financial Analysis")
+    print ("---------------------------------")
+    print("Total months: " + str(row_count))
+    print ("Total: $" + str(int(total)))
+    print("Average change: " + str(int(average_change)))
+    print ("Greatest Increase in Profits: " + (greatest_increase_month) + "  $" + str(int(greatest_increase)))
+    print ("Greatest Decrease in Profits: " + (greatest_decrease_month) + "  $" + str(int(greatest_decrease)))
 
 # Produce output file
 with open("output.txt", "w") as file:
-    file.write("The number of rows is " + str(row_count) + ".\n")
-    file.write("The total profit/loss is $" + str(total) + ".\n")
-    file.write("The average change is " + str(average_change) + ".")
+    file.write("Financial Analysis\n")
+    file.write("---------------------------------\n")
+    file.write("Total months: " + str(row_count) + "\n")
+    file.write("Total: $" + str(int(total)) + "\n")
+    file.write("Average change: " + str(int(average_change)) + "\n")
+    file.write("Greatest Increase in Profits: " + (greatest_increase_month) + "  $" + str(int(greatest_increase)) + "\n")
+    file.write("Greatest Decrease in Profits: " + (greatest_decrease_month) + "  $" + str(int(greatest_decrease)))
